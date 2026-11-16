@@ -47,11 +47,16 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.8.2")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 
-    val cameraX = "1.3.1"
-    implementation("androidx.camera:camera-core:$cameraX")
-    implementation("androidx.camera:camera-camera2:$cameraX")
-    implementation("androidx.camera:camera-lifecycle:$cameraX")
-    implementation("androidx.camera:camera-view:$cameraX")
+    // Камера
+    val camerax_version = "1.3.1"
+    implementation("androidx.camera:camera-core:${camerax_version}")
+    implementation("androidx.camera:camera-camera2:${camerax_version}")
+    implementation("androidx.camera:camera-lifecycle:${camerax_version}")
+    implementation("androidx.camera:camera-view:${camerax_version}")
 
+    // ML Kit Image Labeling (стабильная версия)
     implementation("com.google.mlkit:image-labeling:17.0.8")
+    
+    // Дополнительно для поддержки старых устройств (опционально, но полезно)
+    implementation("com.google.android.gms:play-services-mlkit-image-labeling:16.0.9")
 }
