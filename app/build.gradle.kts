@@ -57,6 +57,4 @@ dependencies {
     // ML Kit Image Labeling (стабильная версия)
     implementation("com.google.mlkit:image-labeling:17.0.8")
     
-    // Дополнительно для поддержки старых устройств (опционально, но полезно)
-    implementation("com.google.android.gms:play-services-mlkit-image-labeling:16.0.9")
 }
