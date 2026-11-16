@@ -22,7 +22,7 @@ jobs:
           java-version: 17
 
       - name: Install Android SDK Command Line Tools
-        run: |
+        run: rm -rf $ANDROID_HOME/cmdline-tools || true
           mkdir -p $ANDROID_HOME/cmdline-tools/latest
           wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
           unzip cmdline-tools.zip -d temp_dir
