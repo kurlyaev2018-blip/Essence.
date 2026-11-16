@@ -21,21 +21,28 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
-
-      - name: Install Android packages
+      - name: Install Android SDK Command Line Tools
         run: |
-          yes | sdkmanager --licenses || true
+          mkdir -p $ANDROID_HOME/cmdline-tools/latest
+          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
+          unzip cmdline-tools.zip -d temp_dir
+          mv temp_dir/cmdline-tools/* $ANDROID_HOME/cmdline-tools/latest/
+          rm -rf temp_dir cmdline-tools.zip
+
+      - name: Accept Licenses & Install Packages
+        run: |
+          yes | sdkmanager --licenses > /dev/null || true
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 8.7
+      - name: Setup Gradle Wrapper
+        run: |
+          gradle wrapper --gradle-version 8.7
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
       - name: Build debug APK
-        run: gradle assembleDebug --stacktrace
+        run: ./gradlew assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
