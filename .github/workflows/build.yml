@@ -21,17 +21,10 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-        # Эта версия должна поддерживать Node.js 20+
-
-      - name: Install Android packages
+      # Эта строка позволяет Gradle автоматически найти и установить Android SDK
+      - name: Setup Android SDK via Gradle properties
         run: |
-          yes | sdkmanager --licenses || true
-          sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
-
-      - name: Setup Gradle Wrapper
-        run: gradle wrapper --gradle-version 8.7
+          echo "sdk.dir=$ANDROID_HOME" >> local.properties
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
